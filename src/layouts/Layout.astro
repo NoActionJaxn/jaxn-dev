@@ -1,5 +1,4 @@
 ---
-import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import "../styles/global.css";
 ---
@@ -14,8 +13,8 @@ import "../styles/global.css";
 		<title>Astro Basics</title>
 	</head>
 	<body class="bg-zinc-800 text-zinc-100">
-		<div class="flex flex-col min-h-screen p-5">
-			<Header />
+		<div class="flex flex-col min-h-screen">
+			<Header client:only="react"  />
 
 			<main class="flex-1">
 				<slot />

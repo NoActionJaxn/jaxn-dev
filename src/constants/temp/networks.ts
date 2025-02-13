@@ -1,6 +1,6 @@
-import type { LinkList } from "../../types/linkList";
+import type { Link } from "../../types/link";
 
-export const NETWORKS: LinkList = {
+export const NETWORKS: Record<string, Link> = {
   linkedIn: {
     label: 'LinkedIn',
     url: 'https://www.linkedin.com/in/jackherm/',

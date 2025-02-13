@@ -1,6 +1,6 @@
-import type { LinkList } from "../types/linkList";
+import type { Link } from "../types/link";
 
-export const NAVIGATION: LinkList = {
+export const NAVIGATION: Record<string, Link> = {
   home: {
     label: 'Home',
     url: '/'
