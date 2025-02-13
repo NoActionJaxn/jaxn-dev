@@ -5,17 +5,20 @@ import { Logo } from "./Logo";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useKeyPress } from "../hooks/useKeyPress";
+import { useCurrentPath } from "../hooks/useCurrentPath";
 
 const HEADER_ITEM_HEIGHT = 'h-10';
 
 function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const path = useCurrentPath();
+
+  useKeyPress("Escape", () => setIsOpen(false));
+
 
   const handleClick = () => {
     setIsOpen((prev) => !prev);
   }
-
-  useKeyPress("Escape", () => setIsOpen(false));
 
   return (
     <>
@@ -50,7 +53,7 @@ function MobileHeader() {
                     <li key={key}>
                       <a
                         href={NAVIGATION[key].url}
-                        className="hover:text-yellow-500 transition"
+                        className={classNames("hover:text-yellow-500 transition", { "text-yellow-500": path === NAVIGATION[key].url })}
                         onClick={() => setIsOpen(false)}
                       >
                         {NAVIGATION[key].label}
@@ -95,6 +98,8 @@ function DesktopHeader() {
     width: 0,
   });
 
+  const path = useCurrentPath();
+
   const handleMouseEnter = (index: number, event: React.MouseEvent<HTMLAnchorElement>) => {
     const { offsetTop, offsetLeft, clientHeight, offsetWidth } = event.currentTarget;
     setHoveredIndex(index);
@@ -137,7 +142,9 @@ function DesktopHeader() {
             <li key={key} className="inline-block font-semibold uppercase">
               <a
                 href={NAVIGATION[key].url}
-                className={classNames("flex items-center justify-center text-sm px-5 relative z-50 hover:text-yellow-500 transition-colors", HEADER_ITEM_HEIGHT)}
+                className={classNames("flex items-center justify-center text-sm px-5 relative z-50 hover:text-yellow-500 transition-colors", HEADER_ITEM_HEIGHT, {
+                  "text-yellow-500": path === NAVIGATION[key].url
+                })}
                 onMouseEnter={(e) => handleMouseEnter(i, e)}
               >{NAVIGATION[key].label}</a>
             </li>
