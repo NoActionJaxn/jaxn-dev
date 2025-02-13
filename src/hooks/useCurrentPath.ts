@@ -5,8 +5,6 @@ export function useCurrentPath(): string {
     typeof window !== "undefined" ? window.location.pathname : "/"
   );
 
-  console.log({path})
-
   useEffect(() => {
     if (typeof window === "undefined") return;
 

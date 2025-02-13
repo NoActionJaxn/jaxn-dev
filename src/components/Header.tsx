@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useKeyPress } from "../hooks/useKeyPress";
 import { useCurrentPath } from "../hooks/useCurrentPath";
+import { useResize } from "../hooks/useResize";
 
 const HEADER_ITEM_HEIGHT = 'h-10';
 
@@ -14,7 +15,7 @@ function MobileHeader() {
   const path = useCurrentPath();
 
   useKeyPress("Escape", () => setIsOpen(false));
-
+  useResize(() => setIsOpen(false));
 
   const handleClick = () => {
     setIsOpen((prev) => !prev);
@@ -40,13 +41,13 @@ function MobileHeader() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bg-black/50 backdrop-blur-sm z-20 inset-0 text-white min-w-xs"
+            className="fixed bg-black/50 backdrop-blur-lg z-20 inset-0 text-white min-w-xs"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="relative top-30 space-y-12">
+            <div className="relative top-32 space-y-12">
               <nav className="px-8">
                 <ul className="space-y-5 text-3xl">
                   {Object.keys(NAVIGATION).map((key) => (
@@ -68,7 +69,7 @@ function MobileHeader() {
                 <ul className="space-x-2">
                   {Object.keys(NETWORKS).map((key) => (
                     <li key={key} className="inline-block">
-                      <a href={NETWORKS[key].url} title={NETWORKS[key].label} className="flex items-center justify-center size-10 bg-zinc-50 text-zinc-900 hover:bg-yellow-500 transition-colors text-xl rounded-full">
+                      <a href={NETWORKS[key].url} title={NETWORKS[key].label} className="flex items-center justify-center size-16 bg-zinc-50 text-zinc-900 hover:bg-yellow-500 transition-colors text-4xl rounded-full">
                         <i className={`fa-brands fa-${NETWORKS[key].icon}`}></i>
                         <span className="sr-only">{NETWORKS[key].label}</span>
                       </a>
