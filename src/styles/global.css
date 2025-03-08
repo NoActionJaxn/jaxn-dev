@@ -1,6 +1,43 @@
 @import "tailwindcss";
-@import "./fonts";
+@import "./aileron";
 
 @theme  {
-  --font-aileron: "Aileron", sans-serif;
+  --font-display: "Aileron", sans-serif;
+}
+
+:root {
+  @apply font-light text-lg;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+
+  h1 {
+    @apply text-9xl font-bold;
+  }
+
+  h2 {
+    @apply text-7xl font-bold;
+  }
+
+  h3 {
+    @apply text-5xl font-semibold;
+  }
+
+  h4 {
+    @apply text-3xl font-semibold;
+  }
+
+  h5 {
+    @apply text-2xl font-normal;
+  }
+
+  h6 {
+    @apply text-xl font-light;
+  }
 }

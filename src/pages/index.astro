@@ -1,10 +1,63 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import RichTextRenderer from "@caisy/rich-text-astro-renderer";
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import { client, graphql } from "../lib/graphql";
+import type { HomePageRequest } from "../types/graphql";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const res = await client.request<HomePageRequest>(graphql`
+	query HomePage {
+		Index {
+			actionButtonLabel
+			actionButtonUrl
+			callToAction
+			headline
+			id
+			tagline
+			_meta {
+				id
+			}
+			content {
+				json
+			}
+			image {
+				id
+				src
+				title
+				height
+				width
+			}
+		}
+	}
+`);
+
+const page = res.Index;
 ---
 
 <Layout>
-	<span class="font-aileron">This is a page</span>
+	<section class="relative h-full grid grid-cols-2 gap-6">
+		<article class="py-32 z-10">
+			<div class="space-y-6">
+				<h2 class="-mr-80">{page.headline}</h2>
+				<h5>{page.tagline}</h5>
+				<RichTextRenderer node={page.content.json} />
+			</div>
+			<div class="space-y-8 py-32">
+				<h5>{page.callToAction}</h5>
+				<a
+					class="bg-zinc-400 text-zinc-900 p-2 rounded uppercase"
+					href={page.actionButtonUrl}>{page.actionButtonLabel}</a
+				>
+			</div>
+		</article>
+		<aside class="bg-zinc-300 sticky overflow-hidden">
+			<Image
+				class="absolute inset-0 w-full h-full object-cover"
+				src={page.image.src}
+				height={page.image.height}
+				width={page.image.width}
+				alt="It's me!"
+			/>
+		</aside>
+	</section>
 </Layout>

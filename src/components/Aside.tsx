@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion, type Transition } from 'framer-motion';
-import { ROUTES } from "../constants/routes";
-import { NETWORKS } from "../constants/networks";
+import { ROUTES, NETWORKS } from "../lib/constants";
 
 const COLLAPSED_WIDTH = 144;
 
@@ -24,7 +23,7 @@ export function Aside() {
       initial={{ width: isOpen ? '33%' : COLLAPSED_WIDTH }}
       animate={{ width: isOpen ? '33%' : COLLAPSED_WIDTH }}
       transition={TRANSITION_TYPE}>
-      <div className="flex justify-end">
+      <div className="flex justify-end pb-12">
         <motion.button
           className="border-3 rounded-full size-24 text-2xl cursor-pointer"
           type="button"
@@ -50,7 +49,7 @@ export function Aside() {
                       delay: index * TRANSITION_DELAY,
                       duration: TRANSITION_DURATION,
                     }}>
-                    <a className="text-2xl font-medium hover:underline underline-offset-2" href={ROUTES[key].href}>{ROUTES[key].label}</a>
+                    <a className="text-2xl font-semibold" href={ROUTES[key].href}>{ROUTES[key].label}</a>
                   </motion.li>
                 ))
               }
@@ -64,7 +63,7 @@ export function Aside() {
               delay: footerDelay(),
               duration: 0.1,
             }}>
-            <ul className="flex justify-center h-32 gap-2">
+            <ul className="flex justify-center gap-2 h-32">
               {
                 Object.keys(NETWORKS).map((key, index) => (
                   <li key={key}>
@@ -78,16 +77,17 @@ export function Aside() {
             </ul>
           </motion.nav>
           <motion.footer
+            className="text-xs text-right"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               delay: footerDelay() + TRANSITION_DELAY,
               duration: TRANSITION_DURATION,
             }}>
-            <h6 className="text-xs">Jackson Hermitt</h6>
-            <h6 className="text-xs">Fullstack Dev Portfolio</h6>
+            <h6>Jackson Hermitt</h6>
+            <h6>Fullstack Dev Portfolio</h6>
             <br />
-            <h6 className="text-xs">jaxn.dev</h6>
+            <h6 className="text-zinc-400">jaxn.dev</h6>
           </motion.footer>
         </>
       )}
