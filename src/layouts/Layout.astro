@@ -1,3 +1,8 @@
+---
+import { Aside } from "../components/Aside";
+import "../styles/global.css";
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -7,16 +12,15 @@
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
-	<body>
-		<slot />
+	<body class="overflow-hidden bg-zinc-200 text-zinc-900">
+		<main class="relative flex w-screen h-screen p-12">
+			<section class="flex-1 h-full overflow-y-auto">
+				<slot />
+			</section>
+			<Aside client:only="react"/>
+		</main>
 	</body>
+	<script
+		src="https://kit.fontawesome.com/1aad4926f4.js"
+		crossorigin="anonymous"></script>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
