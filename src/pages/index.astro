@@ -3,9 +3,9 @@ import RichTextRenderer from "@caisy/rich-text-astro-renderer";
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import { client, graphql } from "../lib/graphql";
-import type { HomePageRequest } from "../types/graphql";
+import type { HomePageResponse } from "../types/graphql";
 
-const res = await client.request<HomePageRequest>(graphql`
+const res = await client.request<HomePageResponse>(graphql`
 	query HomePage {
 		Index {
 			actionButtonLabel
@@ -31,33 +31,34 @@ const res = await client.request<HomePageRequest>(graphql`
 	}
 `);
 
-const page = res.Index;
+const homePage = res.Index;
 ---
 
 <Layout>
-	<section class="relative h-full grid grid-cols-2 gap-6">
-		<article class="py-32 z-10">
-			<div class="space-y-6">
-				<h2 class="-mr-80">{page.headline}</h2>
-				<h5>{page.tagline}</h5>
-				<RichTextRenderer node={page.content.json} />
+	<div class="flex md:flex-row flex-col gap-16">
+		<aside class="md:w-1/3">
+			<div class="w-full">
+				<Image
+					class="w-full"
+					src={homePage.image.src}
+					width={homePage.image.width}
+					height={homePage.image.height}
+					alt={homePage.image.title}
+				/>
 			</div>
-			<div class="space-y-8 py-32">
-				<h5>{page.callToAction}</h5>
-				<a
-					class="bg-zinc-400 text-zinc-900 p-2 rounded uppercase"
-					href={page.actionButtonUrl}>{page.actionButtonLabel}</a
-				>
+		</aside>
+		<article class="flex-1 space-y-4">
+			<div>
+				<h3>{homePage.headline}</h3>
+				<h4>{homePage.tagline}</h4>
+			</div>
+			<div class="space-y-4">
+				<RichTextRenderer node={homePage.content.json} />
+			</div>
+			<div class="pt-12">
+				<h6>{homePage.callToAction}</h6>
+				<a href={homePage.actionButtonUrl}>{homePage.actionButtonLabel}</a>
 			</div>
 		</article>
-		<aside class="bg-zinc-300 sticky overflow-hidden">
-			<Image
-				class="absolute inset-0 w-full h-full object-cover"
-				src={page.image.src}
-				height={page.image.height}
-				width={page.image.width}
-				alt="It's me!"
-			/>
-		</aside>
-	</section>
+	</div>
 </Layout>

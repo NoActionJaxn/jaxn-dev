@@ -1,4 +1,4 @@
-export interface HomePageRequest {
+export interface HomePageResponse {
   Index: {
     actionButtonLabel: string;
     actionButtonUrl: string;
@@ -24,3 +24,18 @@ export interface HomePageRequest {
     };
   }
 };
+
+interface SocialNetworkNode {
+  id: string;
+  connectionUrl: string;
+  fontAwesomeIcon: string;
+  label: string;
+}
+
+export interface SocialNetworksResponse {
+  allSocialNetworks: {
+    edges: {
+      node: SocialNetworkNode;
+    }[];
+  };
+}

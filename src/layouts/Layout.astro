@@ -1,5 +1,5 @@
 ---
-import { Aside } from "../components/Aside";
+import Header from "../components/Header.astro";
 import "../styles/global.css";
 ---
 
@@ -9,16 +9,15 @@ import "../styles/global.css";
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
-	<body class="overflow-hidden bg-zinc-200 text-zinc-900">
-		<main class="relative flex w-screen h-screen gap-6 p-24">
-			<section class="flex-1 h-full overflow-y-auto">
-				<slot />
-			</section>
-			<Aside client:only="react"/>
-		</main>
+	<body>
+		<Header />
+		<section class="px-16">
+			<slot />
+		</section>
 	</body>
 	<script
 		src="https://kit.fontawesome.com/1aad4926f4.js"
