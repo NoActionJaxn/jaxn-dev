@@ -1,9 +1,7 @@
 import { useRef, useState, type ReactNode } from "react";
 import { useElementPosition } from "../../hooks/useElementPosition";
 import { MenuButton } from "./MenuButton";
-import { ROUTES } from "../../lib/constants";
 import classNames from "classnames";
-import { SocialNetworks } from "./SocialNetworks";
 
 interface MenuProps {
   children?: ReactNode | ReactNode[];
@@ -22,8 +20,9 @@ export function Menu({ children }: MenuProps) {
   return (
     <div className="relative">
       <MenuButton ref={buttonRef} onClick={toggleMenu} />
-
-      <div className={classNames({ absolute: isVisible, hidden: !isVisible })}>{children}</div>
+      <div className={classNames({ absolute: isVisible, hidden: !isVisible })}>
+        {children}
+      </div>
     </div>
   )
 };

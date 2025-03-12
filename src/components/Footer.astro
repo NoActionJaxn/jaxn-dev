@@ -1,0 +1,13 @@
+---
+import { Logo } from "./react/Logo";
+import SocialNetworks from "./SocialNetworks.astro";
+---
+
+<footer class="grid grid-cols-2 bg-zinc-900 h-64 p-16">
+  <div>
+    <Logo className="text-2xl" client:only="react"/>
+  </div>
+  <div class="flex justify-end items-end">
+    <SocialNetworks />
+  </div>
+</footer>
