@@ -6,15 +6,15 @@ export const ROUTES: LinkItem[] = [
     label: 'Home'
   },
   {
-    url: '/',
+    url: '/posts',
     label: 'Posts'
   },
   {
-    url: '/',
+    url: '/works',
     label: 'Works'
   },
   {
-    url: '/',
+    url: '/about',
     label: 'About'
   },
 ];

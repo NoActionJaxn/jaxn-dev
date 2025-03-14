@@ -9,7 +9,7 @@ export const COLORS = {
     TEXT: 'text-stone-300'
   },
   MENU: {
-    BACKGROUND: 'bg-stone-300/30',
+    BACKGROUND: 'bg-stone-300/20',
     LINK: {
       BACKGROUND: 'bg-stone-900',
       TEXT: 'text-stone-300'
