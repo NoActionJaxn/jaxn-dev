@@ -2,8 +2,32 @@
 import RichTextRenderer from "@caisy/rich-text-astro-renderer";
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import { homePageRequest } from "../lib/graphql";
+
+const homePage = homePageRequest.Index;
 ---
 
 <Layout>
-
+  <article class="space-y-16">
+    <div>
+      <Image
+        class="w-full"
+        src={homePage.image.src}
+        width={homePage.image.width}
+        height={homePage.image.height}
+        alt={homePage.image.title}
+      />
+    </div>
+    <div class="flex flex-col md:flex-row gap-4 md:gap-16 px-16">
+      <div class="flex-1 text-left md:text-right space-y-4">
+        <h3>{homePage.headline}</h3>
+        <h5>{homePage.tagline}</h5>
+      </div>
+      <div class="flex-1 space-y-4">
+        <div class="space-y-4">
+          <RichTextRenderer node={homePage.content.json} />
+        </div>
+      </div>
+    </div>
+  </article>
 </Layout>
