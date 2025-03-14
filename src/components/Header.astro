@@ -1,34 +1,50 @@
 ---
-import { client, graphql } from "../lib/graphql";
-import type { SocialNetworksResponse } from "../types/graphql";
+import classNames from "classnames";
 import { AnimatedLogo } from "./react/AnimatedLogo";
 import { Menu } from "./react/Menu";
+import { ROUTES } from "../lib/constants/routes";
+import { SIZES, COLORS } from "../lib/constants/tailwind";
+import { SocialNetworks } from "./react/SocialNetworks";
+import { socialNetworksRequest } from "../lib/graphql";
 
-const res = await client.request<SocialNetworksResponse>(graphql`
-  query SocialNetworks {
-    allSocialNetworks {
-      edges {
-        node {
-          id
-          connectionUrl
-          fontAwesomeIcon
-          label
-        }
-      }
-    }
-  }
-`);
-
-const socialNetworks = res.allSocialNetworks;
+const socialNetworks = socialNetworksRequest.allSocialNetworks.edges;
 ---
 
-<header class="sticky top-0 flex items-center justify-between pt-24 pb-6 px-16">
-  <div class="flex items-end h-full">
+<header
+  class={classNames(
+    SIZES.SPACING.X_AXIS,
+    SIZES.HEADER.SPACING.Y_AXIS,
+    "sticky top-0 left-0 flex items-center box",
+  )}
+>
+  <div class="flex-1">
     <AnimatedLogo client:only="react" />
   </div>
-  <div class="flex items-end h-full">
+  <div>
     <Menu client:only="react">
-      Content
+      <nav class="flex-1 flex flex-col justify-center items-end">
+        <ul class="flex flex-col gap-8">
+          {
+            ROUTES.map((route) => (
+              <li class="block text-right">
+                <a
+                  class={classNames(
+                    COLORS.MENU.LINK.BACKGROUND,
+                    COLORS.MENU.LINK.TEXT,
+                    SIZES.MENU.LINK.Y_AXIS,
+                    SIZES.MENU.LINK.X_AXIS,
+                    "uppercase text-black text-2xl font-unica-one-regular",
+                  )}
+                  href={route.url}
+                >
+                  {route.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <SocialNetworks networks={socialNetworks} />
     </Menu>
   </div>
 </header>

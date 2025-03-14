@@ -1,22 +1,14 @@
-import { motion } from "framer-motion";
-import { useScrollPosition } from "../../hooks/useScrollPosition";
-import { TypingSimulator } from "./TypingSimulator";
-
-const OPAQUE_POSITION = 10;
+import classNames from "classnames";
+import { useTypingSimulator } from "../../hooks/useTypingSimulator"
+import { COLORS } from "../../lib/constants/tailwind";
 
 export function AnimatedLogo() {
-  const { scrollY } = useScrollPosition(5);
-
-  const opacity = scrollY > OPAQUE_POSITION ? Math.max(1 - (scrollY - OPAQUE_POSITION) / 200, 0) : 1;
+  const { displayedText, showCursor } = useTypingSimulator('jaxn.dev');
 
   return (
-    <motion.div
-      style={{ opacity }}
-      transition={{ duration: 0.3 }} // Smooth transition
-    >
-      <div className="w-min h-min p-4 text-xl pointer-events-none">
-        <TypingSimulator className="text-nowrap" text="jaxn.dev" />
-      </div>
-    </motion.div>
+    <span className={classNames("pointer-events-none select-none font-bold !text-3xl", COLORS.PAGE.TEXT)}>
+      <span>{displayedText}</span>
+      <span className={classNames({ hidden: showCursor })}> &#9608;</span>
+    </span>
   );
 }

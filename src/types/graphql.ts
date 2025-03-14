@@ -25,7 +25,7 @@ export interface HomePageResponse {
   }
 };
 
-interface SocialNetworkNode {
+export interface SocialNetworkNode {
   id: string;
   connectionUrl: string;
   fontAwesomeIcon: string;
