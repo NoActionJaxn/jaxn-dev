@@ -1,26 +1,36 @@
 import { useState, useEffect } from "react";
 
-export function useTypingSimulator(text: string, speed: number = 100) {
+function useTypingSimulator(text: string, speed: number = 100) {
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    let index = 0;
-    setDisplayedText("");
+    let index = displayedText.length;
+    let isDeleting = displayedText.length > 0;
     setIsTyping(true);
 
-    const typingInterval = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedText((prev) => text.slice(0, index + 1));
-        index++;
+    const interval = setInterval(() => {
+      if (isDeleting) {
+        if (index > 0) {
+          setDisplayedText((prev) => prev.slice(0, -1));
+          index--;
+        } else {
+          isDeleting = false;
+          index = 0;
+        }
       } else {
-        clearInterval(typingInterval);
-        setIsTyping(false);
+        if (index < text.length) {
+          setDisplayedText((prev) => text.slice(0, index + 1));
+          index++;
+        } else {
+          clearInterval(interval);
+          setIsTyping(false);
+        }
       }
     }, speed);
 
-    return () => clearInterval(typingInterval);
+    return () => clearInterval(interval);
   }, [text, speed]);
 
   useEffect(() => {
@@ -31,4 +41,6 @@ export function useTypingSimulator(text: string, speed: number = 100) {
   }, []);
 
   return { displayedText, showCursor: isTyping || showCursor };
-};
+}
+
+export default useTypingSimulator;

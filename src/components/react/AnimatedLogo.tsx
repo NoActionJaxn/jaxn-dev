@@ -1,29 +1,27 @@
+import { useEffect, useState } from "react"
+import useTypingSimulator from "../../hooks/useTypingSimulator"
+import useScrollPosition from "../../hooks/useScrollPosition";
 import classNames from "classnames";
-import { useTypingSimulator } from "../../hooks/useTypingSimulator"
-import { COLORS } from "../../lib/constants/tailwind";
-import { useScrollPosition } from "../../hooks/useScrollPosition";
-import { motion } from "framer-motion";
-import { ROUTES } from "../../lib/constants/routes";
 
-const SCROLL_THRESHOLD = 5;
+const TYPE = 'JAXN.DEV ';
+const CONDENSED_TYPE = 'J.D ';
 
-export function AnimatedLogo() {
-  const { scrollY } = useScrollPosition(1);
-  const { displayedText, showCursor } = useTypingSimulator('jaxn.dev');
+function AnimatedLogo() {
+  const [logoType, setLogoType] = useState(TYPE);
+  const { displayedText, showCursor } = useTypingSimulator(logoType);
 
-  const opacity = scrollY > SCROLL_THRESHOLD ? Math.max(1 - (scrollY - SCROLL_THRESHOLD) / 200, 0) : 1;
+  const { scrollY } = useScrollPosition({ debounce: 10 });
+
+  useEffect(() => {
+    setLogoType(scrollY > 0 ? CONDENSED_TYPE : TYPE);
+  }, [scrollY]);
 
   return (
-    <motion.a
-      className={classNames("block w-min h-min", { hidden: opacity <= 0 })}
-      href={ROUTES.home.url}
-      style={{ opacity }}
-      transition={{ duration: 0.3 }}
-    >
-      <span className={classNames("flex gap-3 pointer-events-none select-none font-bold !text-3xl", COLORS.PAGE.TEXT)}>
-        <span>{displayedText}</span>
-        <span className={classNames({ hidden: showCursor })}>&#9608;</span>
-      </span>
-    </motion.a>
+    <span className="flex gap-2 w-min h-min p-2">
+      <span>{displayedText}</span>
+      <span className={classNames({ hidden: showCursor })}>&#9608;</span>
+    </span>
   );
 }
+
+export default AnimatedLogo;

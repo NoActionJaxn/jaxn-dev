@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Unica+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Questrial&display=swap");
 @import "tailwindcss";
 
 @theme  {
-  --font-unica-one-regular: "Unica One", sans-serif;
-  --font-outfit: "Outfit", sans-serif;
+  --font-climate-crisis: "Climate Crisis", sans-serif;
+  --font-display--font-climate-crisis: "YEAR" 1979;
+  --font-questrial: "Questrial", sans-serif;
   --text-xs: 0.6em;
   --text-sm: 0.75em;
   --text-md: 0.875em;
@@ -27,47 +28,42 @@
 
 @layer base {
   body {
-    @apply font-outfit font-extralight text-screen-md sm:text-screen-sm lg:text-screen-lg xl:text-screen-xl 2xl:text-screen-2xl;
+    @apply font-questrial text-screen-md sm:text-screen-sm lg:text-screen-lg xl:text-screen-xl 2xl:text-screen-2xl;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-climate-crisis font-normal;
+  }
+
+  h5, h6 {
+    @apply font-questrial font-normal;
   }
 
   h1 {
-    @apply font-bold text-5xl;
+    @apply text-5xl;
   }
 
   h2 {
-    @apply font-bold text-4xl;
+    @apply text-4xl;
   }
 
   h3 {
-    @apply font-bold text-3xl;
+    @apply text-3xl;
   }
 
   h4 {
-    @apply text-zinc-500 font-unica-one-regular font-normal text-2xl;
+    @apply text-2xl;
   }
 
   h5 {
-    @apply text-zinc-500  font-unica-one-regular font-normal text-xl;
+    @apply text-xl;
   }
 
   h6 {
-    @apply font-bold text-lg;
+    @apply text-lg;
   }
 
   small {
     @apply text-sm;
-  }
-
-  a,
-  b,
-  strong,
-  i,
-  em,
-  mark,
-  del,
-  ins,
-  sub,
-  sup {
-    @apply text-md;
   }
 }

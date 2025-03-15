@@ -1,24 +1,10 @@
 ---
-import classNames from "classnames";
-import { AnimatedLogo } from "./react/AnimatedLogo";
-import { Menu } from "./react/Menu";
-import { SIZES } from "../lib/constants/tailwind";
+import AnimatedLogo from '../components/react/AnimatedLogo';
 import { socialNetworksRequest } from "../lib/graphql";
 
 const socialNetworks = socialNetworksRequest.allSocialNetworks.edges;
 ---
 
-<header
-  class={classNames(
-    SIZES.SPACING.X_AXIS,
-    SIZES.HEADER.SPACING.Y_AXIS,
-    "sticky top-0 left-0 flex items-center box",
-  )}
->
-  <div class="flex-1">
-    <AnimatedLogo client:only="react" />
-  </div>
-  <div>
-    <Menu client:only="react" networks={socialNetworks} />
-  </div>
+<header class="sticky top-0 left-0">
+  <AnimatedLogo client:only="react" />
 </header>

@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
-export function useScrollPosition(debounceDelay: number = 100) {
+interface useScrollPositionProps {
+  debounce: number;
+};
+
+function useScrollPosition({ debounce = 100 }: useScrollPositionProps) {
   const [scrollPosition, setScrollPosition] = useState({
     scrollX: 0,
     scrollY: 0,
@@ -19,7 +23,7 @@ export function useScrollPosition(debounceDelay: number = 100) {
           scrollX: window.scrollX,
           scrollY: window.scrollY,
         });
-      }, debounceDelay);
+      }, debounce);
     };
 
     handleScroll();
@@ -30,7 +34,9 @@ export function useScrollPosition(debounceDelay: number = 100) {
       clearTimeout(timeoutId);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [debounceDelay]);
+  }, [debounce]);
 
   return scrollPosition;
 };
+
+export default useScrollPosition;
