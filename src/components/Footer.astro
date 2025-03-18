@@ -1,1 +1,28 @@
-<footer>Footer</footer>
+---
+import { ROUTES } from "../lib/constants/routes";
+import { socialNetworksRequest } from "../lib/graphql";
+import Logo from "./react/Logo";
+import Socials from "./react/Socials";
+
+const networks = socialNetworksRequest.allSocialNetworks;
+---
+
+<footer class="flex flex-row gap-16 justify-between h-72 p-8 bg-stone-400">
+  <div class="">
+    <Logo client:only="react" />
+  </div>
+  <nav class="flex-1">
+    <ul>
+      {
+        Object.keys(ROUTES).map((route) => (
+          <li>
+            <a href={ROUTES[route].url}>{ROUTES[route].label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <div class="flex h-full justify-end items-end">
+    <Socials networks={networks.edges} client:only="react" />
+  </div>
+</footer>

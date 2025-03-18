@@ -1,10 +1,14 @@
 ---
-import AnimatedLogo from '../components/react/AnimatedLogo';
-import { socialNetworksRequest } from "../lib/graphql";
+import AnimatedLogo from "../components/react/AnimatedLogo";
+import MenuWrapper from "./react/MenuWrapper";
+// import { socialNetworksRequest } from "../lib/graphql";
 
-const socialNetworks = socialNetworksRequest.allSocialNetworks.edges;
+// const socialNetworks = socialNetworksRequest.allSocialNetworks.edges;
 ---
 
-<header class="sticky top-0 left-0">
+<header
+  class="sticky flex items-center gap-16 top-0 left-0 px-8 pt-8 pb-4 z-40"
+>
+  <MenuWrapper client:only="react" />
   <AnimatedLogo client:only="react" />
 </header>

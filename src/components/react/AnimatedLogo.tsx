@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import useTypingSimulator from "../../hooks/useTypingSimulator"
-import useScrollPosition from "../../hooks/useScrollPosition";
+import useTypingSimulator from "./hooks/useTypingSimulator"
+import useScrollPosition from "./hooks/useScrollPosition";
 import classNames from "classnames";
+import { ROUTES } from "../../lib/constants/routes";
 
-const TYPE = 'JAXN.DEV ';
-const CONDENSED_TYPE = 'J.D ';
+const TYPE = 'jaxn.dev';
+const CONDENSED_TYPE = 'j';
 
 function AnimatedLogo() {
   const [logoType, setLogoType] = useState(TYPE);
@@ -17,10 +18,10 @@ function AnimatedLogo() {
   }, [scrollY]);
 
   return (
-    <span className="flex gap-2 w-min h-min p-2">
+    <a className="w-min h-min text-4xl font-righteous select-none" href={ROUTES.home.url}>
       <span>{displayedText}</span>
-      <span className={classNames({ hidden: showCursor })}>&#9608;</span>
-    </span>
+      <span className={classNames({ 'opacity-0': !showCursor })}>&#9608;</span>
+    </a>
   );
 }
 

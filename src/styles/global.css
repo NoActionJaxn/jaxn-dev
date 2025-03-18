@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Questrial&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Righteous&display=swap");
 @import "tailwindcss";
 
 @theme  {
-  --font-climate-crisis: "Climate Crisis", sans-serif;
-  --font-display--font-climate-crisis: "YEAR" 1979;
   --font-questrial: "Questrial", sans-serif;
+  --font-righteous: "Righteous", sans-serif;
   --text-xs: 0.6em;
   --text-sm: 0.75em;
   --text-md: 0.875em;
@@ -32,7 +31,7 @@
   }
 
   h1, h2, h3, h4 {
-    @apply font-climate-crisis font-normal;
+    @apply font-righteous font-normal;
   }
 
   h5, h6 {
